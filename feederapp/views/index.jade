@@ -1,0 +1,27 @@
+extends layout
+
+block content
+
+	h1 Feeding Scheduler
+	p What time do you want to feed the cats?
+
+	#addFeedingTime
+		fieldset
+			input(id="hour", placeholder="Hour", type="number", required, pattern='[0-9]?[0-9]', maxlength='2')
+			input(id='minute', placeholder='Minute', type='number', required, pattern='[0-9]?[0-9]', maxlength='2')
+			select(id='ampm', required)
+				option(value="am") AM
+				option(value="pm") PM
+			button(id="btnAddFeedingTime") Add Feeding Time
+
+	// FEEDING TIMES LIST
+	h2 Feeding Times
+	#feedingTimes
+		table
+			thead
+				th Hour
+				th Minute
+				th AM/PM
+				th Delete?
+			tbody
+	// /FEEDING TIMES LIST
