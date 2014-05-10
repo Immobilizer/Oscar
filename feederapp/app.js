@@ -64,5 +64,30 @@ app.use(function(err, req, res, next) {
     });
 });
 
-
 module.exports = app;
+
+// Check if it's time to feed the cats every second
+setInterval(function() {
+
+    // Get the current time
+    var date = new Date;
+
+    // Convert current time to seconds, minutes, and hours
+    var currentSecond = date.getSeconds();
+    var currentMinute = date.getMinutes();
+    var currentHour = date.getHours();
+
+    // Get the schedules in the database
+    db.collection('feedingschedule').find().toArray(function (err, items) {
+        
+        // Check each schedule in the database
+        items.forEach(function(items) {
+
+            var hour;
+            // If the current time corresponds with a database entry, feed the cats
+            items.ampm == 'pm' ? hour = items.hour + 12 : hour = items.hour;
+
+        });
+    });
+    
+}, 1000);

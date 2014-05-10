@@ -4,7 +4,6 @@ var feedingScheduleData = [];
 // DOM ready ==========================================
 $(document).ready(function() {
 
-	console.log('the document is ready');
 	// Populate the schedule table on initial page load
 	populateTable();
 
@@ -134,4 +133,14 @@ function deleteSchedule(event) {
 		// If they said no to the confim, do nothing
 		return false;
 	}
+}
+
+// Check if cats should be fed now
+function checkTime() {
+	var date = new Date;
+date.setTime(result_from_Date_getTime);
+
+var seconds = date.getSeconds();
+var minutes = date.getMinutes();
+var hour = date.getHours();
 }
