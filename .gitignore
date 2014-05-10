@@ -1,0 +1,6 @@
+# Ignore the following files and directories
+
+node_modules
+data
+*.log
+readme.txt
