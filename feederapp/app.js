@@ -83,11 +83,23 @@ setInterval(function() {
         // Check each schedule in the database
         items.forEach(function(items) {
 
+            // Convert database times to numbers for comparison with current time
+            var second =0;
+            var minute = parseInt(items.minute);
             var hour;
+            
+            if( parseInt(items.hour) == 12 ) {
+                items.ampm == 'am' ? hour = 0 : hour = 12;
+            } else {
+                items.ampm == 'pm' ? hour = parseInt(items.hour) + 12 : hour = parseInt(items.hour);
+            }
+
             // If the current time corresponds with a database entry, feed the cats
-            items.ampm == 'pm' ? hour = items.hour + 12 : hour = items.hour;
+            if (second == currentSecond && minute == currentMinute && hour == currentHour) {
+                console.log('Send a message to activate the servo! Feedin\' time is now!');
+            }
 
         });
     });
-    
+
 }, 1000);
