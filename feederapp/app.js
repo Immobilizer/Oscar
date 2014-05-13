@@ -4,14 +4,44 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-// Database
-var mongo = require('mongoskin');
-var db = mongo.db("mongodb://localhost:27017/nodetest2", {native_parser:true});
 
 var routes = require('./routes/index');
 var schedules = require('./routes/schedules');
 
 var app = express();
+
+// ORM (Object Relational Mapper) 
+var Sequelize = require('sequelize');
+
+// Bootstrap the database
+var sequelize = new Sequelize('Oscar', 'username', '', {
+    dialect: 'sqlite',
+    storage: './data/Oscar.sqlite'
+});
+
+// Define ORM Objects
+var Schedule = sequelize.define('Schedule', {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    hour: {
+        type: Sequelize.INTEGER
+    }, minute: {
+        type: Sequelize.INTEGER
+    }, ampm: {
+        type: Sequelize.STRING
+    }
+});
+
+Schedule.sync().success(function() {
+    console.log("Your database is ready.");
+});
+
+var Database = {
+    'Schedule': Schedule
+}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -26,7 +56,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Make our db accessible to our router
 app.use(function(req, res, next){
-    req.db = db;
+    req.db = Database;
     next();
 });
 
@@ -64,8 +94,6 @@ app.use(function(err, req, res, next) {
     });
 });
 
-module.exports = app;
-
 // Check if it's time to feed the cats every second
 setInterval(function() {
 
@@ -77,29 +105,32 @@ setInterval(function() {
     var currentMinute = date.getMinutes();
     var currentHour = date.getHours();
 
-    // Get the schedules in the database
-    db.collection('feedingschedule').find().toArray(function (err, items) {
+
+    function applySchedule(schedule) {
+        // Convert database times to numbers for comparison with current time
+        var second = 0;
+        var minute = parseInt(schedule.minute);
+        var hour;
         
-        // Check each schedule in the database
-        items.forEach(function(items) {
+        if( parseInt(schedule.hour) == 12 ) {
+            schedule.ampm == 'am' ? hour = 0 : hour = 12;
+        } else {
+            schedule.ampm == 'pm' ? hour = parseInt(schedule.hour) + 12 : hour = parseInt(schedule.hour);
+        }
 
-            // Convert database times to numbers for comparison with current time
-            var second =0;
-            var minute = parseInt(items.minute);
-            var hour;
-            
-            if( parseInt(items.hour) == 12 ) {
-                items.ampm == 'am' ? hour = 0 : hour = 12;
-            } else {
-                items.ampm == 'pm' ? hour = parseInt(items.hour) + 12 : hour = parseInt(items.hour);
-            }
+        // If the current time corresponds with a database entry, feed the cats
+        if (second == currentSecond && minute == currentMinute && hour == currentHour) {
+            console.log('Send a message to activate the servo! Feedin\' time is now!');
+        }
+    }
 
-            // If the current time corresponds with a database entry, feed the cats
-            if (second == currentSecond && minute == currentMinute && hour == currentHour) {
-                console.log('Send a message to activate the servo! Feedin\' time is now!');
-            }
-
+    Schedule
+        .findAll()
+        .success(function(schedules) {
+            schedules.forEach(function(schedule) {
+                applySchedule(schedule);
+            });
         });
-    });
-
 }, 1000);
+
+module.exports = app;
