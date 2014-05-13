@@ -26,16 +26,18 @@ function populateTable() {
 	// jQuery AJAX call for JSON
 	$.getJSON('/schedules/schedule', function(data) {
 
+		var schedules = data.schedules;
+
 		// Stick our schedule data array into a schedule variable in the global object
-		feedingScheduleData = data;
+		feedingScheduleData = schedules;
 
 		// For each item in our JSON, add a table row and cells to the content string
-		$.each(data, function() {
+		$.each(schedules, function() {
 			tableContent += '<tr>';
 			tableContent += '<td>' + this.hour + '</td>';
 			tableContent += '<td>' + this.minute + '</td>';
 			tableContent += '<td>' + this.ampm  + '</td>';
-			tableContent += '<td><a href="#" class="linkdeleteschedule" rel="' + this._id + '">delete</a></td>';
+			tableContent += '<td><a href="#" class="linkdeleteschedule" rel="' + this.id + '">delete</a></td>';
 			tableContent += '</tr>';
 		});
 		// Inject the whole content string into our existing HTML table
@@ -112,7 +114,7 @@ function deleteSchedule(event) {
 		// If they did, do the delete
 		$.ajax({
 			type: 'DELETE',
-			url: '/schedules/deleteschedule/' + $(this).attr('rel')
+			url: '/schedules/deleteschedule/' + $(this).prop('rel')
 		}).done(function(response) {
 
 			// Check for a successful (blank) response
