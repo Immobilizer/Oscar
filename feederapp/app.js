@@ -8,6 +8,8 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var schedules = require('./routes/schedules');
 
+var net = require('net');
+
 var app = express();
 
 // ORM (Object Relational Mapper) 
@@ -120,7 +122,25 @@ setInterval(function() {
 
         // If the current time corresponds with a database entry, feed the cats
         if (second == currentSecond && minute == currentMinute && hour == currentHour) {
+
             console.log('Send a message to activate the servo! Feedin\' time is now!');
+
+            // Future: choose amount of food to feed the cats. Feed one unit for now.
+            var feedPortion = {
+                portion: 1
+            };
+
+            // Open a socket to communicate with servo control python process
+            var socket = new net.Socket();
+            socket.connect(50007, '127.0.0.1');
+
+            socket.on('error', function(err) {
+                console.log('Error code: ' + err.code);
+            });
+
+            socket.write(JSON.stringify(feedPortion));
+
+            socket.end();
         }
     }
 

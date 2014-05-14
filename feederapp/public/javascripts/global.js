@@ -1,6 +1,3 @@
-// FeedingSchedule data array for filling in info box
-var feedingScheduleData = [];
-
 // DOM ready ==========================================
 $(document).ready(function() {
 
@@ -27,9 +24,6 @@ function populateTable() {
 	$.getJSON('/schedules/schedule', function(data) {
 
 		var schedules = data.schedules;
-
-		// Stick our schedule data array into a schedule variable in the global object
-		feedingScheduleData = schedules;
 
 		// For each item in our JSON, add a table row and cells to the content string
 		$.each(schedules, function() {
@@ -135,14 +129,4 @@ function deleteSchedule(event) {
 		// If they said no to the confim, do nothing
 		return false;
 	}
-}
-
-// Check if cats should be fed now
-function checkTime() {
-	var date = new Date;
-date.setTime(result_from_Date_getTime);
-
-var seconds = date.getSeconds();
-var minutes = date.getMinutes();
-var hour = date.getHours();
 }
