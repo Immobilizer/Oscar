@@ -4,6 +4,15 @@ import asyncore
 import time
 from RPIO import PWM
 
+# Servo actuation function
+def feedCats():
+    # Set servo on GPIO17 to 1600µs (1.6ms)
+    servo.set_servo(17, 1600)
+    # Run the servo for one second
+    time.sleep(1)
+    # Clear servo on GPIO17
+    servo.stop_servo(17)
+
 class EchoHandler(asyncore.dispatcher_with_send):
 
     def handle_read(self):
@@ -38,15 +47,3 @@ server = EchoServer('localhost', 50007)
 asyncore.loop()
 
 servo = PWM.Servo()
-
-# Servo actuation function
-def feedCats():
-
-    # Set servo on GPIO17 to 1600µs (1.6ms)
-    servo.set_servo(17, 1600)
-
-    # Run the servo for one second
-    time.sleep(1)
-
-    # Clear servo on GPIO17
-    servo.stop_servo(17)
