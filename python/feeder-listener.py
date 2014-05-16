@@ -4,6 +4,8 @@ import asyncore
 import time
 from RPIO import PWM
 
+servo = PWM.Servo()
+
 # Servo actuation function
 def feedCats():
     # Set servo on GPIO17 to 1600 microseconds (1.6ms)
@@ -45,5 +47,3 @@ class EchoServer(asyncore.dispatcher):
 
 server = EchoServer('localhost', 50007)
 asyncore.loop()
-
-servo = PWM.Servo()
