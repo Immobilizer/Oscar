@@ -6,7 +6,7 @@ from RPIO import PWM
 
 # Servo actuation function
 def feedCats():
-    # Set servo on GPIO17 to 1600µs (1.6ms)
+    # Set servo on GPIO17 to 1600 microseconds (1.6ms)
     servo.set_servo(17, 1600)
     # Run the servo for one second
     time.sleep(1)
