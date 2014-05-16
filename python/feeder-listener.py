@@ -1,6 +1,8 @@
 import socket
 import json
 import asyncore
+import time
+from RPIO import PWM
 
 class EchoHandler(asyncore.dispatcher_with_send):
 
@@ -10,6 +12,7 @@ class EchoHandler(asyncore.dispatcher_with_send):
             try:
                 message = json.loads(data)
                 print('Incoming message: ', message)
+                feedCats()
             except ValueError:
                 print('Decoding JSON has failed!')
 
@@ -33,3 +36,17 @@ class EchoServer(asyncore.dispatcher):
 
 server = EchoServer('localhost', 50007)
 asyncore.loop()
+
+servo = PWM.Servo()
+
+# Servo actuation function
+def feedCats():
+
+    # Set servo on GPIO17 to 1600µs (1.6ms)
+    servo.set_servo(17, 1600)
+
+    # Run the servo for one second
+    time.sleep(1)
+
+    # Clear servo on GPIO17
+    servo.stop_servo(17)
