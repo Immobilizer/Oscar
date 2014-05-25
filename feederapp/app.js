@@ -102,15 +102,12 @@ setInterval(function() {
     // Get the current time
     var date = new Date;
 
-    // Convert current time to seconds, minutes, and hours
-    var currentSecond = date.getSeconds();
+    // Convert current time to minutes and hours
     var currentMinute = date.getMinutes();
     var currentHour = date.getHours();
 
-
     function applySchedule(schedule) {
         // Convert database times to numbers for comparison with current time
-        var second = 0;
         var minute = parseInt(schedule.minute);
         var hour;
         
@@ -121,7 +118,7 @@ setInterval(function() {
         }
 
         // If the current time corresponds with a database entry, feed the cats
-        if (second == currentSecond && minute == currentMinute && hour == currentHour) {
+        if (minute == currentMinute && hour == currentHour) {
 
             console.log('Send a message to activate the servo! Feedin\' time is now!');
 
@@ -151,6 +148,6 @@ setInterval(function() {
                 applySchedule(schedule);
             });
         });
-}, 1000);
+}, 60000);
 
 module.exports = app;

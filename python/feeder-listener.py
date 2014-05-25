@@ -11,7 +11,7 @@ def feedCats():
     # Set servo on GPIO17 to 1600 microseconds (1.6ms)
     servo.set_servo(17, 1600)
     # Run the servo for one second
-    time.sleep(1)
+    time.sleep(5)
     # Clear servo on GPIO17
     servo.stop_servo(17)
 
