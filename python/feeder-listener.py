@@ -34,6 +34,7 @@ def feedCats(repeats):
         servo.set_servo(17, 650)
         time.sleep(1)
         servo.set_servo(17, 700)
+        time.sleep(0.5)
 
         repeats = repeats + 1
 
@@ -45,7 +46,7 @@ class EchoHandler(asyncore.dispatcher_with_send):
             try:
                 message = json.loads(data)
                 print('Incoming message: ', message)
-                feedCats()
+                feedCats(2)
             except ValueError:
                 print('Decoding JSON has failed!')
 
