@@ -1,0 +1,13 @@
+{
+  "name": "Oscar",
+  "version": "0.0.0",
+  "authors": [
+    "karl udris"
+  ],
+  "license": "MIT",
+  "dependencies": {
+  	"bootstrap": "~3.2.0",
+  	"jquery": "~2.1.0"
+  },
+  "private": true
+}

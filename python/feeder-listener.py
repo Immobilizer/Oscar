@@ -6,14 +6,36 @@ from RPIO import PWM
 
 servo = PWM.Servo()
 
+# Initially set servo on GPIO17 to 700 microseconds (0.7ms)
+# This is the 0 degree position
+# Give servo one second to reach this position
+servo.set_servo(17, 650)
+time.sleep(1)
+servo.set_servo(17, 700)
+time.sleep(0.5)
+
 # Servo actuation function
-def feedCats():
-    # Set servo on GPIO17 to 1600 microseconds (1.6ms)
-    servo.set_servo(17, 1600)
-    # Run the servo for one second
-    time.sleep(5)
-    # Clear servo on GPIO17
-    servo.stop_servo(17)
+# Dispense one serving of food when function is called
+def feedCats(repeats):
+    # # Set servo on GPIO17 to 1600 microseconds (1.6ms)
+    # servo.set_servo(17, 1600)
+    # # Run the servo for one second
+    # time.sleep(5)
+    # # Clear servo on GPIO17
+    # servo.stop_servo(17)
+
+    while i < repeats:
+        # Move ~180 degrees to dispense one serving of cat food
+        servo.set_servo(17, 2450)
+        time.sleep(1)
+        servo.set_servo(17, 2400)
+        time.sleep(0.5)
+        # Move back ~180 degrees to reload food
+        servo.set_servo(17, 650)
+        time.sleep(1)
+        servo.set_servo(17, 700)
+
+        repeats = repeats + 1
 
 class EchoHandler(asyncore.dispatcher_with_send):
 
