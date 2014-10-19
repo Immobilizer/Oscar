@@ -55,6 +55,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/bower_components', express.static(path.join(__dirname + '/bower_components')));
 
 // Make our db accessible to our router
 app.use(function(req, res, next){
