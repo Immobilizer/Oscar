@@ -1,3 +1,6 @@
+// Socket communication with server
+var socket = io.connect(document.location.href);
+
 // DOM ready ==========================================
 $(document).ready(function() {
 
@@ -6,6 +9,9 @@ $(document).ready(function() {
 
 	// Submit schedule button listener
 	$('#btnAddFeedingTime').on('click', addFeedingTime);
+
+	// Feed the cats immediately
+	$('#btnFeedNow').on('click', feedNow);
 
 	// Delete schedule link click
 	$('#feedingTimes table tbody').on('click', 'td a.linkdeleteschedule', deleteSchedule);
@@ -54,9 +60,9 @@ function addFeedingTime(event) {
 
 		// If it is, compile all feeding schedule info into one object
 		var newSchedule = {
-			'hour': $('#addFeedingTime fieldset input#hour').val(),
-			'minute': $('#addFeedingTime fieldset input#minute').val(),
-			'ampm': $('#addFeedingTime fieldset select#ampm').val()
+			'hour': $('#addFeedingTime input#hour').val(),
+			'minute': $('#addFeedingTime input#minute').val(),
+			'ampm': $('#addFeedingTime select#ampm').val()
 		}
 
 		// Use AJAX to post the object to our adduser service
@@ -71,7 +77,7 @@ function addFeedingTime(event) {
 			if (response.msg === '') {
 
 				// Clear the form inputs
-				$('#addFeedingTime fieldset input').val('');
+				$('#addFeedingTime input').val('');
 
 				// Update the table
 				populateTable();
@@ -129,4 +135,9 @@ function deleteSchedule(event) {
 		// If they said no to the confim, do nothing
 		return false;
 	}
+}
+
+// Feed the cats now
+function feedNow() {
+	socket.emit('feed now');
 }

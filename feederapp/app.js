@@ -12,6 +12,13 @@ var net = require('net');
 
 var app = express();
 
+// socket.io setup
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
+// socket.io listening on port 8888
+server.listen(8888);
+
 // ORM (Object Relational Mapper) 
 var Sequelize = require('sequelize');
 
@@ -97,6 +104,30 @@ app.use(function(err, req, res, next) {
     });
 });
 
+// socket.io listener
+io.sockets.on('connection', function (socket) {
+
+    // slider change event
+    socket.on('feed now', function () {
+
+        // Future: choose amount of food to feed the cats. Feed one unit for now.
+        var feedPortion = {
+            portion: 1
+        };
+
+        // Open a socket to communicate with servo control python process
+        var socket = new net.Socket();
+        socket.connect(50007, '127.0.0.1');
+
+        socket.on('error', function(err) {
+            console.log('Error code: ' + err.code);
+        });
+
+        socket.write(JSON.stringify(feedPortion));
+
+        socket.end();
+    });
+});
 // Check if it's time to feed the cats every second
 setInterval(function() {
 

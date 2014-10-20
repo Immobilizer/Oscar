@@ -2,26 +2,36 @@ extends layout
 
 block content
 
-	h1 Feeding Scheduler
-	p What time do you want to feed the cats?
+	.wrapper
+		.container-fluid
+			.row
+				.col-sm-12
+					h1 Feeding Scheduler
+					p What time do you want to feed the cats?
 
-	#addFeedingTime
-		fieldset
-			input(id="hour", placeholder="Hour", type="number", required, pattern='[0-9]?[0-9]', maxlength='2')
-			input(id='minute', placeholder='Minute', type='number', required, pattern='[0-9]?[0-9]', maxlength='2')
-			select(id='ampm', required)
-				option(value="am") AM
-				option(value="pm") PM
-			button(id="btnAddFeedingTime") Add Feeding Time
+					form(role="form")
+						div(id="addFeedingTime" class="form-group")
+							input(id="hour", class="col-xs-5 col-centered form-control", placeholder="Hour", type="number", required, pattern='[0-9]?[0-9]', maxlength='2')
+							input(id='minute', class="col-xs-5 col-centered form-control", placeholder='Minute', type='number', required, pattern='[0-9]?[0-9]', maxlength='2')
+							select(id='ampm', class="col-xs-2 col-centered form-control", required)
+								option(value="am") AM
+								option(value="pm") PM
+			.row
+				.col-xs-6
+					button(id="btnAddFeedingTime", class="btn btn-primary", type="button") Add Feeding Time
+				.col-xs-6
+					button(id="btnFeedNow", class="btn btn-warning pull-right", type="button") Feed Now
 
-	// FEEDING TIMES LIST
-	h2 Feeding Times
-	#feedingTimes
-		table
-			thead
-				th Hour
-				th Minute
-				th AM/PM
-				th Delete?
-			tbody
-	// /FEEDING TIMES LIST
+			// FEEDING TIMES LIST
+			.row
+				.col-sm-12
+					h2 Feeding Times
+					#feedingTimes
+						table.table
+							thead
+								th Hour
+								th Minute
+								th AM/PM
+								th Delete?
+							tbody
+			// /FEEDING TIMES LIST
