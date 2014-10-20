@@ -13,11 +13,11 @@ var net = require('net');
 var app = express();
 
 // socket.io setup
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
+//var server = require('http').Server(app);
+//var io = require('socket.io')(server);
 
 // socket.io listening on port 8888
-server.listen(8888);
+//server.listen(8888);
 
 // ORM (Object Relational Mapper) 
 var Sequelize = require('sequelize');
