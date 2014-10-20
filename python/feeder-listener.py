@@ -23,7 +23,7 @@ def feedCats(repeats):
     # time.sleep(5)
     # # Clear servo on GPIO17
     # servo.stop_servo(17)
-
+    i = 0
     while i < repeats:
         # Move ~180 degrees to dispense one serving of cat food
         servo.set_servo(17, 2450)
@@ -36,7 +36,7 @@ def feedCats(repeats):
         servo.set_servo(17, 700)
         time.sleep(0.5)
 
-        repeats = repeats + 1
+        i = i + 1
 
 class EchoHandler(asyncore.dispatcher_with_send):
 
