@@ -13,11 +13,18 @@ var net = require('net');
 var app = express();
 
 // socket.io setup
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
+//var server = require('http').Server(app);
+//var io = require('socket.io')(server);
 
 // socket.io listening on port 8888
-server.listen(8888);
+//server.listen(8888);
+
+//
+var server = http.createServer(app);
+var io = require('socket.io').listen(server);
+server.listen(app.get('port'), function(){
+  console.log('Express server listening on port ' + app.get('port'));
+});
 
 // ORM (Object Relational Mapper) 
 var Sequelize = require('sequelize');
@@ -102,16 +109,6 @@ app.use(function(err, req, res, next) {
         message: err.message,
         error: {}
     });
-});
-
-// socketio moved from /bin/www
-
-var debug = require('debug')('my-application');
-
-app.set('port', process.env.PORT || 3000);
-
-var server = app.listen(app.get('port'), function() {
-  debug('Express server listening on port ' + server.address().port);
 });
 
 // socket.io listener
