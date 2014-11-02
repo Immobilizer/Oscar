@@ -10,21 +10,21 @@ var schedules = require('./routes/schedules');
 
 var net = require('net');
 
-var app = express();
+var app = require('express')();
 
 // socket.io setup
-//var server = require('http').Server(app);
-//var io = require('socket.io')(server);
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 
 // socket.io listening on port 8888
-//server.listen(8888);
+server.listen(8888);
 
 //
-var server = http.createServer(app);
-var io = require('socket.io').listen(server);
-server.listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
-});
+//var server = http.createServer(app);
+//var io = require('socket.io').listen(server);
+//server.listen(app.get('port'), function(){
+//  console.log('Express server listening on port ' + app.get('port'));
+//});
 
 // ORM (Object Relational Mapper) 
 var Sequelize = require('sequelize');
