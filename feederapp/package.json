@@ -6,7 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "express": "4.*",
+    "express": "~4.0",
     "static-favicon": "~1.0.0",
     "morgan": "~1.0.0",
     "cookie-parser": "~1.0.1",
@@ -16,6 +16,6 @@
     "sqlite3": "*",
     "sequelize": "*",
     "bower": "~1.3.12",
-    "socket.io": "~1.1.0"
+    "socket.io": "~1.2.0"
   }
 }

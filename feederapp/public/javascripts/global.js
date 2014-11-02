@@ -1,5 +1,5 @@
 // Socket communication with server
-//var socket = io.connect(document.location.href);
+var socket = io.connect(document.location.href);
 
 // DOM ready ==========================================
 $(document).ready(function() {
@@ -11,7 +11,7 @@ $(document).ready(function() {
 	$('#btnAddFeedingTime').on('click', addFeedingTime);
 
 	// Feed the cats immediately
-	//$('#btnFeedNow').on('click', feedNow);
+	$('#btnFeedNow').on('click', feedNow);
 
 	// Delete schedule link click
 	$('#feedingTimes table tbody').on('click', 'td a.linkdeleteschedule', deleteSchedule);

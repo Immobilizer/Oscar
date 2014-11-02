@@ -13,11 +13,11 @@ var net = require('net');
 var app = express();
 
 // socket.io setup
-//var server = require('http').Server(app);
-//var io = require('socket.io')(server);
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 
 // socket.io listening on port 8888
-//server.listen(8888);
+server.listen(8888);
 
 // ORM (Object Relational Mapper) 
 var Sequelize = require('sequelize');
@@ -104,7 +104,7 @@ app.use(function(err, req, res, next) {
     });
 });
 
-/*/ socket.io listener
+// socket.io listener
 io.sockets.on('connection', function (socket) {
 
     // slider change event
@@ -127,7 +127,7 @@ io.sockets.on('connection', function (socket) {
 
         socket.end();
     });
-});*/
+});
 // Check if it's time to feed the cats every second
 setInterval(function() {
 
