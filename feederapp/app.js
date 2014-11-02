@@ -105,6 +105,9 @@ app.use(function(err, req, res, next) {
 });
 
 // socketio moved from /bin/www
+
+var debug = require('debug')('my-application');
+
 app.set('port', process.env.PORT || 3000);
 
 var server = app.listen(app.get('port'), function() {
