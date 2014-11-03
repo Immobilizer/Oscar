@@ -20,6 +20,8 @@ counter = 0
 
 # Food dispensing function, actuates servo
 def feedCats(feedCycles):
+
+    global counter
     
     # Determines how much food the cats get
     i = 0
