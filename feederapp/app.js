@@ -19,13 +19,6 @@ var io = require('socket.io')(server);
 // socket.io listening on port 8888
 server.listen(8888);
 
-//
-//var server = http.createServer(app);
-//var io = require('socket.io').listen(server);
-//server.listen(app.get('port'), function(){
-//  console.log('Express server listening on port ' + app.get('port'));
-//});
-
 // ORM (Object Relational Mapper) 
 var Sequelize = require('sequelize');
 
@@ -135,7 +128,7 @@ io.sockets.on('connection', function (socket) {
         socket.end();
     });
 });
-// Check if it's time to feed the cats every second
+// Check if it's time to feed the cats every minute
 setInterval(function() {
 
     // Get the current time

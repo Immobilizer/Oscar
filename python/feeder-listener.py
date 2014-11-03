@@ -14,28 +14,35 @@ time.sleep(1)
 servo.set_servo(17, 700)
 time.sleep(0.5)
 
-# Servo actuation function
-# Dispense one serving of food when function is called
-def feedCats(repeats):
-    # # Set servo on GPIO17 to 1600 microseconds (1.6ms)
-    # servo.set_servo(17, 1600)
-    # # Run the servo for one second
-    # time.sleep(5)
-    # # Clear servo on GPIO17
-    # servo.stop_servo(17)
-    i = 0
-    while i < repeats:
-        # Move ~180 degrees to dispense one serving of cat food
-        servo.set_servo(17, 2450)
-        time.sleep(1)
-        servo.set_servo(17, 2400)
-        time.sleep(0.5)
-        # Move back ~180 degrees to reload food
-        servo.set_servo(17, 650)
-        time.sleep(1)
-        servo.set_servo(17, 700)
-        time.sleep(0.5)
+# Counter to track position of servo
+# 0 degrees is even, 180 degrees is odd
+counter = 0
 
+# Food dispensing function, actuates servo
+def feedCats(feedCycles):
+    
+    # Determines how much food the cats get
+    i = 0
+    while i < feedCycles
+
+        # if counter is even (servo at 0 degrees)
+        if counter % 2 == 0:
+            # move to 180 degrees
+            servo.set_servo(17, 2450)
+            time.sleep(1)
+            servo.set_servo(17, 2400)
+            time.sleep(0.5)
+            # add one to counter
+            counter = counter + 1
+        # if counter is odd (servo at 180 degrees)
+        else :
+            # move to 0 degrees
+            servo.set_servo(17, 650)
+            time.sleep(1)
+            servo.set_servo(17, 700)
+            time.sleep(0.5)
+            # add one to counter
+            counter = counter + 1
         i = i + 1
 
 class EchoHandler(asyncore.dispatcher_with_send):
@@ -46,7 +53,8 @@ class EchoHandler(asyncore.dispatcher_with_send):
             try:
                 message = json.loads(data)
                 print('Incoming message: ', message)
-                feedCats(2)
+                # Feed the cats three feeding cycles worth of food
+                feedCats(3)
             except ValueError:
                 print('Decoding JSON has failed!')
 
