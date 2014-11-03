@@ -1,5 +1,5 @@
 // Socket communication with server
-var socket = io.connect(document.location.href);
+/*var socket = io.connect(document.location.href);*/
 
 // DOM ready ==========================================
 $(document).ready(function() {
@@ -138,6 +138,6 @@ function deleteSchedule(event) {
 }
 
 // Feed the cats now
-function feedNow() {
+/*function feedNow() {
 	socket.emit('feed now');
-}
+}*/
