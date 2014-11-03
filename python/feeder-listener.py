@@ -23,7 +23,7 @@ def feedCats(feedCycles):
     
     # Determines how much food the cats get
     i = 0
-    while i < feedCycles
+    while i < feedCycles:
 
         # if counter is even (servo at 0 degrees)
         if counter % 2 == 0:
