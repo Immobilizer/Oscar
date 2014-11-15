@@ -16,8 +16,8 @@ var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
-// socket.io listening on port 8888
-server.listen(8888);
+// socket.io listening on port 80
+server.listen(80);
 
 // ORM (Object Relational Mapper) 
 var Sequelize = require('sequelize');
